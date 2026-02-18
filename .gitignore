@@ -10,8 +10,8 @@ dist/
 build/
 .eggs/
 
-# Poetry
-poetry.lock
+# venv
+venv/
 
 # Virtual environment
 .venv/
