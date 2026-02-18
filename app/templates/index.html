@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- History Sidebar -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h2>History</h2>
+            <button id="new-btn" title="New diagram">+</button>
+        </div>
+        <div id="history-list"></div>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Toolbar -->
+        <div id="toolbar">
+            <input type="text" id="title-input" placeholder="Diagram title (auto-generated if empty)">
+            <div class="toolbar-actions">
+                <button id="render-btn">Render</button>
+                <button id="save-btn">Save</button>
+                <button id="download-svg-btn" title="Download SVG">SVG</button>
+                <button id="download-png-btn" title="Download PNG">PNG</button>
+                <button id="delete-btn" title="Delete diagram">Delete</button>
+            </div>
+        </div>
+
+        <!-- Editor + Preview -->
+        <div id="workspace">
+            <div id="editor-pane">
+                <textarea id="editor" spellcheck="false" placeholder="Paste your Mermaid diagram code here...
+
+Example:
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[OK]
+    B -->|No| D[Cancel]"></textarea>
+                <div id="error-panel" class="hidden">
+                    <strong>Error:</strong>
+                    <span id="error-message"></span>
+                </div>
+            </div>
+            <div id="preview-pane">
+                <div id="preview"></div>
+            </div>
+        </div>
+
+        <!-- Status bar -->
+        <div id="status-bar">
+            <span id="status-text">Ready</span>
+            <span id="auto-save-indicator"></span>
+        </div>
+    </main>
+
+    <script type="module" src="/static/app.js"></script>
+</body>
+</html>
