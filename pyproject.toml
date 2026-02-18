@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mermaid-tool"
+version = "0.1.0"
+description = "Local Mermaid diagram viewer with auto-save and history"
+authors = []
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115"
+uvicorn = {extras = ["standard"], version = "^0.34"}
+aiosqlite = "^0.20"
+jinja2 = "^3.1"
+python-multipart = "^0.0.18"
+
+[tool.poetry.scripts]
+mermaid-tool = "app.main:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
