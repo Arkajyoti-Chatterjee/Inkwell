@@ -45,7 +45,6 @@ async def create(data: DiagramCreate, db=Depends(get_db)):
     EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
 
     # Save SVG
-    diagram_id_placeholder = None
     import uuid
 
     diagram_id = str(uuid.uuid4())
