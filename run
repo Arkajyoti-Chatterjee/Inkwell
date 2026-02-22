@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+cd "$(dirname "$0")"
+
+VENV_DIR="venv"
+
+# Create venv if it doesn't exist
+if [ ! -d "$VENV_DIR" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv "$VENV_DIR"
+fi
+
+# Activate the venv
+source "$VENV_DIR/bin/activate"
+# Upgrade pip and install Poetry
+pip install --quiet --upgrade pip
+pip install --quiet poetry
+
+# Configure Poetry to use the local venv
+poetry config virtualenvs.in-project true --local
+
+# Update lock file and install dependencies
+poetry lock
+poetry install
+
+# Run the app
+exec uvicorn app.main:app --reload "$@"
