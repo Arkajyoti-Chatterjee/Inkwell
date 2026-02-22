@@ -36,7 +36,9 @@ async def init_db():
         await db.commit()
 
 
-async def save_diagram(db, title: str, source: str, svg_path: str | None, png_path: str | None) -> str:
+async def save_diagram(
+    db, title: str, source: str, svg_path: str | None, png_path: str | None
+) -> str:
     diagram_id = str(uuid.uuid4())
     now = datetime.now(timezone.utc).isoformat()
     await db.execute(
@@ -48,7 +50,14 @@ async def save_diagram(db, title: str, source: str, svg_path: str | None, png_pa
     return diagram_id
 
 
-async def update_diagram(db, diagram_id: str, title: str, source: str, svg_path: str | None, png_path: str | None):
+async def update_diagram(
+    db,
+    diagram_id: str,
+    title: str,
+    source: str,
+    svg_path: str | None,
+    png_path: str | None,
+):
     now = datetime.now(timezone.utc).isoformat()
     await db.execute(
         "UPDATE diagrams SET title=?, source=?, svg_path=?, png_path=?, updated_at=? WHERE id=?",

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 
-from app.db import get_db, save_diagram, update_diagram, list_diagrams, get_diagram, delete_diagram
+from app.db import get_db, update_diagram, list_diagrams, get_diagram, delete_diagram
 
 router = APIRouter(prefix="/diagrams", tags=["diagrams"])
 
@@ -46,7 +46,6 @@ async def create(data: DiagramCreate, db=Depends(get_db)):
 
     # Save SVG
     diagram_id_placeholder = None
-    from app.db import save_diagram as _save
     import uuid
 
     diagram_id = str(uuid.uuid4())
@@ -61,8 +60,8 @@ async def create(data: DiagramCreate, db=Depends(get_db)):
         png_path_str = str(png_path)
 
     from datetime import datetime, timezone
+
     now = datetime.now(timezone.utc).isoformat()
-    import aiosqlite
     await db.execute(
         "INSERT INTO diagrams (id, title, source, svg_path, png_path, created_at, updated_at) "
         "VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -92,7 +91,9 @@ async def update(diagram_id: str, data: DiagramUpdate, db=Depends(get_db)):
         png_path.write_bytes(base64.b64decode(data.png_base64))
         png_path_str = str(png_path)
 
-    await update_diagram(db, diagram_id, data.title, data.source, str(svg_path), png_path_str)
+    await update_diagram(
+        db, diagram_id, data.title, data.source, str(svg_path), png_path_str
+    )
     return {"id": diagram_id, "status": "updated"}
 
 
